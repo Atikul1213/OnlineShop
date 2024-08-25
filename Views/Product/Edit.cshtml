@@ -1,0 +1,90 @@
+﻿@using OnlineShop.Models;
+@model OnlineShop.Models.Products
+
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<br />
+<br />
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-3">
+                    Edit Product
+                </h2>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div class="card-body p-4">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div class="p-4 rounded border">
+                <div asp-validation-summary="ModelOnly" class="text-danger">
+                </div>
+                 
+
+                <div class="mb-3 row p-1">
+                    <label asp-for="Name" class="p-0"> </label>
+                    <input type="hidden" asp-for="Id"/>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-dandger"></span>
+                </div>
+
+                <div class="mb-3 row p-1">
+                    <label asp-for="Price" class="p-0"> </label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-dandger"></span>
+                </div>
+
+
+                <div class="mb-3 row p-1">
+                    <label asp-for="ProductColor" class="p-0"> </label>
+                    <input asp-for="ProductColor" class="form-control" />
+                    <span asp-validation-for="ProductColor" class="text-dandger"></span>
+                </div>
+
+                <div class="mb-3 row p-1">
+                    <label asp-for="ProductTypeId" class="p-0"> </label>
+                    <select asp-for="ProductTypeId" asp-items="ViewBag.productTypeId" class="form-control"> </select>
+                    @* <input asp-for="ProductTypeId" class="form-control" hidden /> *@
+                    <span asp-validation-for="ProductTypeId" class="text-dandger"></span>
+                </div>
+
+                <div class="mb-3 row p-1">
+                    <label asp-for="SpecialTagId" class="p-0"> </label>
+                    <select asp-for="SpecialTagId" asp-items="ViewBag.TagId" class="form-control"></select>
+                    @* <input asp-for="SpecialTagId" class="form-control" hidden /> *@
+                    <span asp-validation-for="SpecialTagId" class="text-dandger"></span>
+                </div>
+
+                <div class="mb-3 row p-1">
+                    <label asp-for="IsAvailable" class="p-0"> </label>
+                    <input asp-for="IsAvailable" class="" type="checkbox" />
+                    <span asp-validation-for="IsAvailable" class="text-dandger"></span>
+                </div>
+
+
+                <div class="form-group">
+                    <input type="submit" asp-route-id="@Model.Id" class="btn btn-primary" value="Update" />
+                    <a asp-action="Index" class="btn btn-success">Back to Product</a>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
