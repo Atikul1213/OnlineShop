@@ -9,18 +9,15 @@ namespace OnlineShop.Controllers
 {
     public class HomeController : Controller
     {
-        //private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> _logger;
 
-        // public HomeController(ILogger<HomeController> logger)
-        //{
-        //  _logger = logger;
-        // }
 
 
         private ApplicationDbContext _db;
-        public HomeController(ApplicationDbContext db)
+        public HomeController(ApplicationDbContext db, ILogger<HomeController> logger)
         {
             _db = db;
+            _logger = logger;
         }
 
         public IActionResult Index()
@@ -66,11 +63,81 @@ namespace OnlineShop.Controllers
 
             products = HttpContext.Session.Get<List<Products>>("products");
 
+            if (products == null)
+            {
+                products = new List<Products>();
+            }
+
             products.Add(product);
             HttpContext.Session.Set("products", products);
 
             return View(product);
         }
+
+
+        [ActionName("Remove")]
+        public IActionResult RemoveToCard(int? id)
+        {
+
+
+            var products = HttpContext.Session.Get<List<Products>>("products");
+
+            if (products != null)
+            {
+                var product = products.FirstOrDefault(c => c.Id == id);
+                if (product != null)
+                {
+                    products.Remove(product);
+                    HttpContext.Session.Set("products", products);
+                }
+
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
+        // Post Product Details
+        [HttpPost]
+        public IActionResult Remove(int? id)
+        {
+
+
+            var products = HttpContext.Session.Get<List<Products>>("products");
+
+            if (products != null)
+            {
+                var product = products.FirstOrDefault(c => c.Id == id);
+                if (product != null)
+                {
+                    products.Remove(product);
+                    HttpContext.Session.Set("products", products);
+                }
+
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
+
+
+
+        public IActionResult Cart()
+        {
+            var products = HttpContext.Session.Get<List<Products>>("products");
+
+            if (products == null)
+                products = new List<Products>();
+
+
+
+            return View(products);
+        }
+
+
+
+
 
 
 

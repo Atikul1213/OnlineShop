@@ -1,0 +1,47 @@
+﻿@model List<Products>
+
+
+<h2>Your Carts</h2>
+
+<div class="row">
+     <table class="table table-bordered">
+         <thead>
+             <tr>
+                 <th>Name</th>
+                 <th>Price</th>
+                 <th>Product Type</th>
+                 <th>Product Color</th>
+                 <th></th>
+             </tr>
+         </thead>
+
+         <tbody>
+            @foreach(var prd in Model)
+            {
+                <tr>
+                    <td>@prd.Name</td>
+                    <td>@prd.Price</td>
+                    <td>@prd.ProductTypes</td>
+                    <td>@prd.ProductColor</td>
+                    <td>
+                        <a asp-action="Remove" asp-controller="Home" asp-route-id="@prd.Id" class="btn btn-danger">Remove</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+     </table>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        <a asp-action="Index" asp-controller="Home" class="btn btn-primary">Back to Home</a>
+    </div>
+
+    <div class="col-6">
+        <h3>Total Amount: </h3>
+        <h3>Grant Total: @Model.Sum(x=>x.Price)</h3>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Process to Checkout</a>
+    </div>
+
+</div>
