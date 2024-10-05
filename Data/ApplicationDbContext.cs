@@ -16,6 +16,9 @@ namespace OnlineShop.Data
         public DbSet<SpecialTag> SpecialTags { get; set; }
         public DbSet<Products> Products { get; set; }
 
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetails> OrderDetails { get; set; }
+
         public DbSet<OnlineShopUser> onlineShopUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
